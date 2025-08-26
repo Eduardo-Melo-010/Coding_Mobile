@@ -17,5 +17,5 @@ document.querySelector('#search').addEventListener('submit', async (event) => {
 })
 
 function showAlert (msg) {
-    documento.querySelector('#alert').innerHTML = msg;
+    document.querySelector('#alert').innerHTML = msg;
 }

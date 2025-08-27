@@ -23,7 +23,7 @@ form.addEventListener("submit", async (e) => {
     document.getElementById("player-info").style.display = "none";
 
     try {
-        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${playerName}`, {
+        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${encodeURIComponent(playerName)}`, {
             headers: { "Authorization": API_KEY }
         });
 

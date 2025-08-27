@@ -1,21 +1,58 @@
-document.querySelector('#search').addEventListener('submit', async (event) => {
-    event.preventDefault();
+const API_KEY = "d37d6bee-2ac1-45fe-9c49-eab0c5c6a191"; 
 
-    const cityName = document.querySelector('#city_name').value;
+const form = document.getElementById("search");
+const playerNameInput = document.getElementById("player_name");
 
-    if (!cityName) {
-        return alert('Você precisa digitar uma cidade');
+const playerNameEl = document.getElementById("player-name");
+const teamEl = document.getElementById("team");
+const positionEl = document.getElementById("position");
+const draftNumberEl = document.getElementById("draft_number");
+const draftYearEl = document.getElementById("draft_year");
+const alertEl = document.getElementById("alert");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const playerName = playerNameInput.value.trim();
+
+    if (!playerName) {
+        alertEl.textContent = "Digite o nome de um jogador!";
+        return;
     }
 
-    const apiKey = '44b748705ee037d734c26f0699a93707';
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(cityName)}&appid=${apiKey}&units=metric&lang=pt_br`;
+    alertEl.textContent = "Buscando...";
+    document.getElementById("player-info").style.display = "none";
 
-    const results = await fetch(apiUrl);
-    const json = await results.json();
+    try {
+        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${playerName}`, {
+            headers: { "Authorization": API_KEY }
+        });
 
-    console.log(json)
-})
+        if (!response.ok) throw new Error(`Erro na API: ${response.status}`);
 
-function showAlert (msg) {
-    document.querySelector('#alert').innerHTML = msg;
-}
+        const data = await response.json();
+
+        if (data.data.length === 0) {
+            alertEl.textContent = "Nenhum jogador encontrado.";
+            return;
+        }
+
+        const player = data.data[0];
+
+       
+        playerNameEl.textContent = `${player.first_name} ${player.last_name}`;
+        teamEl.textContent = player.team.full_name;
+        positionEl.textContent = player.position || "Desconhecido";
+
+       
+        draftNumberEl.textContent = player.draft_number || "Desconhecido"; // placeholder
+        draftYearEl.textContent = player.draft_year || "Desconhecido";
+
+        alertEl.textContent = "";
+        document.getElementById("player-info").style.display = "block";
+
+    } catch (err) {
+        console.error(err);
+        alertEl.textContent = "Ocorreu um erro ao buscar o jogador.";
+        document.getElementById("player-info").style.display = "none";
+    }
+});

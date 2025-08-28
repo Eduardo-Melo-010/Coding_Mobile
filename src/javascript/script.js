@@ -23,7 +23,7 @@ form.addEventListener("submit", async (e) => {
     document.getElementById("player-info").style.display = "none";
 
     try {
-        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${encodeURIComponent(playerName)}`, {
+        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${playerName}`, {
             headers: { "Authorization": API_KEY }
         });
 
@@ -38,12 +38,10 @@ form.addEventListener("submit", async (e) => {
 
         const player = data.data[0];
 
-       
         playerNameEl.textContent = `${player.first_name} ${player.last_name}`;
         teamEl.textContent = player.team.full_name;
         positionEl.textContent = player.position || "Desconhecido";
 
-       
         draftNumberEl.textContent = player.draft_number || "Desconhecido"; // placeholder
         draftYearEl.textContent = player.draft_year || "Desconhecido";
 

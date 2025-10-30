@@ -12,7 +12,7 @@ const alertEl = document.getElementById("alert");
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const playerName = playerNameInput.value.trim();
+        const playerName = playerNameInput.value.trim();
 
     if (!playerName) {
         alertEl.textContent = "Digite o nome de um jogador!";
@@ -53,4 +53,34 @@ form.addEventListener("submit", async (e) => {
         alertEl.textContent = "Ocorreu um erro ao buscar o jogador.";
         document.getElementById("player-info").style.display = "none";
     }
+
+       
+    
+});
+// ======== CÂMERA ========
+const cameraButton = document.getElementById("cameraButton");
+const cameraPreview = document.getElementById("cameraPreview");
+const takePhoto = document.getElementById("takePhoto");
+const snapshot = document.getElementById("snapshot");
+const cameraArea = document.getElementById("camera-area");
+
+let cameraStream = null;
+
+cameraButton.addEventListener("click", async () => {
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({ video: true });
+    cameraPreview.srcObject = cameraStream;
+    cameraArea.style.display = "block";
+  } catch (err) {
+    console.error("Erro ao acessar a câmera:", err);
+    alert("Não foi possível acessar a câmera. Verifique as permissões do navegador.");
+  }
+});
+
+takePhoto.addEventListener("click", () => {
+  const context = snapshot.getContext("2d");
+  snapshot.width = cameraPreview.videoWidth;
+  snapshot.height = cameraPreview.videoHeight;
+  context.drawImage(cameraPreview, 0, 0, snapshot.width, snapshot.height);
+  snapshot.style.display = "block";
 });

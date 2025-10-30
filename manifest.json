@@ -1,0 +1,22 @@
+{
+    "name": "NBA_Player_Stats",
+    "short_name": "NBA_Stats",
+    "start_url": "./index.html",
+    "description": "Aplicativo para consultar informações de jogadores da NBA.",
+    "display": "standalone",
+    "background_color": "#6ea2d0",
+    "language": "pt-BR",
+    "icons": [
+      {
+        "src": "src/icons/jogador-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "src/icons/jogador-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  

@@ -119,3 +119,48 @@ body {
         font-size: 20px;
     }
 }
+
+/* ======== CÂMERA ======== */
+
+.camera-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.camera-btn, .photo-btn {
+  background: var(--vermelho-pastel);
+  color: blue;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.camera-btn:hover, .photo-btn:hover {
+  background: var(--vermelho-hover);
+}
+
+#camera-area {
+  display: none;
+  margin-top: 20px;
+}
+
+#cameraPreview {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+#snapshot {
+  display: none;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+}
+

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="manifest" href="manifest.json">
   <title>NBA Player Search</title>
 </head>
 <body>
@@ -12,13 +13,23 @@
     <h1>BUSCAR JOGADOR DA NBA</h1>
     <form id="search">
       <i class="fa-solid fa-basketball"></i>
-      <input type="search" name="player_name" id="player_name" placeholder="Digite o primeiro nome ou o último">
+      <input type="search" name="player_name" id="player_name" placeholder="Digite o primeiro ou o último nome">
       <button type="submit">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </form>
-
-  
+    <div class="camera-container">
+        <button id="cameraButton" class="camera-btn">
+          <i class="fa-solid fa-camera"></i> Abrir Câmera
+        </button>
+      <div id="camera-area">
+        <video id="cameraPreview" autoplay playsinline></video>
+          <button id="takePhoto" class="photo-btn">
+           <i class="fa-solid fa-circle"></i> Tirar Foto
+          </button>
+        <canvas id="snapshot"></canvas>
+      </div>
+    </div>
     <div id="player-info">
       <h1 id="player-name"></h1>
       <div id="infos">
@@ -29,19 +40,16 @@
             <p id="team"></p>
           </div>
         </div>
-
         <div class="info">
           <i class="fa-solid fa-user"></i>
             <h2>Posição em Quadra</h2>
             <p id="position"></p>
         </div>
-
         <div class="info">
           <i class="fa-solid fa-ranking-star"></i>
             <h2>Posição no Draft</h2>
             <p id="draft_number"></p>
         </div>
-
         <div class="info">
           <i class="fa-duotone fa-regular fa-calendar-days"></i>
             <h2>Ano do Draft</h2>
@@ -50,5 +58,15 @@
       <div id="alert"></div>
     </div>
   <script src="src/javascript/script.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then(() => console.log("Service Worker registrado com sucesso"))
+          .catch((err) => console.error("Erro ao registrar Service Worker:", err));
+      });
+    }
+  </script>
 </body>
 </html>
